@@ -222,6 +222,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "symfony/all-my-sms-notifier": {
+        "version": "v5.3.11"
+    },
     "symfony/asset": {
         "version": "v5.3.11"
     },
