@@ -3,6 +3,10 @@
     <head>
         <meta charset="UTF-8">
             <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+        and uncomment the following Encore helpers to start using Symfony #}
+        
+        <link rel="icon" href="/build/images/favicon.png"/>
         {% block stylesheets %}
            {{ encore_entry_link_tags('app') }}
            
@@ -16,7 +20,6 @@
     <header>
         {% include "_navbar.html.twig" %}
     </header>
-        {% block program_id %}{% endblock %}
         {% block body %}{% endblock %}
     </body>
 </html>
