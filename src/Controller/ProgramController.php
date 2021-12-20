@@ -6,11 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Program;
+use App\Entity\Season;
 use App\Repository\ProgramRepository;
 use App\Repository\SeasonRepository;
 use App\Form\ProgramType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @Route("/program", name="program_")
@@ -35,10 +38,10 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * The controller for the category add form
+     * The controller for the program add form
      *
      * Display the form or deal with it
-     * @Route("/new", name="new")
+     * @Route("/new", name="new", methods={"GET", "POST"})
      */
     public function new(Request $request): Response
     {
@@ -48,7 +51,7 @@ class ProgramController extends AbstractController
         // Get data from HTTP request
         $form->handleRequest($request);
         // Was the form submitted ?
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             // Get the Entity Manager
             $entityManager = $this->getDoctrine()->getManager();
             // Persist Program Object

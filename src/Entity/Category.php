@@ -4,20 +4,21 @@ namespace App\Entity;
 
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\AbstractType;
 
 /**
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ *  @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
 class Category
 {
-   /**
- * @param Program $program
- * @return Category
- */
+    /**
+     * @param Program $program
+     * @return Category
+     */
     public function addProgram(Program $program): self
     {
         if (!$this->programs->contains($program)) {
@@ -28,7 +29,7 @@ class Category
         return $this;
     }
 
-      /**
+    /**
      * @param Program $program
      * @return Category
      */
@@ -53,6 +54,8 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="not empty")
+     * @Assert\Length(max="255", maxMessage="The writing{ { value }} is too long, that could not exceed {{ limit }} characters")
      */
     private $name;
 
@@ -65,9 +68,9 @@ class Category
         $this->programs = new ArrayCollection();
     }
 
-  /**
- * @return Collection|Program[]
- */
+    /**
+     * @return Collection|Program[]
+     */
     public function getPrograms(): Collection
     {
         return $this->programs;
@@ -76,7 +79,7 @@ class Category
      * @param Program $program
      * @return Category
      */
-  
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,7 +96,4 @@ class Category
 
         return $this;
     }
-    
-   
-  
 }
